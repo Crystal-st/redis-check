@@ -1,17 +1,10 @@
 <template>
   <div class="bg">
-      <select name="keywords" id="keywords" class="keywords" v-on:change="selectChange">
-          <option>{{KeyList[0]}}</option>
-          <option>{{KeyList[1]}}</option>
-          <option>{{KeyList[2]}}</option>
-          <option>{{KeyList[3]}}</option>
+      <select name="keywords" id="keywords" class="keywords" v-on:change="selectKeyword">
+          <option v-for="item in KeyList" :key="item">{{item}}</option>
       </select>
-      <select name="filenames" id="filenames">
-          <option >{{FormList[0]}}</option>
-          <option >{{FormList[1]}}</option>
-          <option >{{FormList[2]}}</option>
-          <option >{{FormList[3]}}</option>
-          <option >{{FormList[4]}}</option>
+      <select name="filenames" id="filenames" class="filenames" v-on:change="selectFile">
+          <option v-for="item in FormList" :key="item">{{item}}</option>
       </select>
   </div>
 </template>
@@ -22,12 +15,12 @@ export default {
    name:'RedisShow',
    data() {
        return{
-           KeyList: ['请选择关键字','Collect','Retransmit', '工作'],
-           FormList: ['表1','表2','表3','表4','表5','表6','表7','表8','表9']
+           KeyList: ['请选择关键字','Collect','Retransmit'],
+           FormList: ['请选择点表']
        }
    },
    methods: {
-       selectChange:function(event){
+       selectKeyword:function(event){
            console.log(event.target.value)
            let keyword = event.target.value
            axios.get('http://127.0.0.1:8080/index?keyword=' + keyword)
@@ -35,6 +28,8 @@ export default {
                 // handle success
                 //console.log(response);
                 console.log(response.data);
+                // 把后端返回的点表名添加到文件名列表中
+                FormList.push(response.data);
             })
             .catch(function (error) {
             // handle error
@@ -43,6 +38,10 @@ export default {
             .then(function () {
                 // always executed
             });
+
+       },
+       selectFile:function(){
+           
        }   
    }
 }
@@ -52,7 +51,7 @@ export default {
 
 <style scoped lang="stylus">
 .bg{
-    height 640px
+    height 768px
     background-size cover
     background-image url('../assets/images/bg.png')
     background-repeat none 
@@ -61,14 +60,17 @@ export default {
 .keywords{
     margin-top 20px
     margin-left 20px
-    width 120px
+    width 160px
     height 30px
     padding 5px
+    border-radius 4px
 }
 #filenames{
-    width 220px
+    width 240px
     height 30px
     margin-left 20px
+    padding 5px
+    border-radius 4px
 }
 
 </style>
