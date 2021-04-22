@@ -14,7 +14,7 @@ const axios = require('axios');
 export default {
    name:'RedisShow',
    data() {
-       return{
+       return {
            KeyList: ['请选择关键字','Collect','Retransmit'],
            FormList: ['请选择点表']
        }
@@ -22,14 +22,15 @@ export default {
    methods: {
        selectKeyword:function(event){
            console.log(event.target.value)
+           //console.log(this.FormList)
            let keyword = event.target.value
+           let $this = this
            axios.get('http://127.0.0.1:8080/index?keyword=' + keyword)
             .then(function (response) {
                 // handle success
                 //console.log(response);
                 console.log(response.data);
-                // 把后端返回的点表名添加到文件名列表中
-                FormList.push(response.data);
+                $this.FormList = response.data
             })
             .catch(function (error) {
             // handle error
