@@ -1,11 +1,11 @@
 <template>
   <div>
-      <select name="keywords" id="keywords" class="keywords" v-on:change="selectKeyword">
-          <option v-for="item in KeyList" :key="item">{{item}}</option>
-      </select>
-      <select name="filenames" id="filenames" class="filenames" v-on:change="selectFile">
-          <option v-for="item in FormList" :key="item">{{item}}</option>
-      </select>
+        <select name="keywords" id="keywords" class="keywords" v-on:change="selectKeyword">
+            <option v-for="item in KeyList" :key="item">{{item}}</option>
+        </select>
+        <select name="filenames" id="filenames" class="filenames" v-on:change="selectFile">
+            <option v-for="item in FormList" :key="item">{{item}}</option>
+        </select>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
     data() {
        return {
            KeyList: ['请选择关键字','Collect','Retransmit'],
-           FormList: ['请选择点表']
+           FormList: ['请选择点表'],
        }
    },
    methods: {
@@ -30,7 +30,13 @@ export default {
                 // handle success
                 //console.log(response);
                 console.log(response.data);
-                $this.FormList = response.data
+                if(response.data.length==0) {
+                    $this.FormList = ['请选择点表']
+                }
+                else{
+                    $this.FormList = response.data
+                }
+                
             })
             .catch(function (error) {
             // handle error
@@ -49,19 +55,20 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.keywords{
+.keywords,.filenames{
     margin-top 20px
-    margin-left 20px
-    width 160px
-    height 30px
+    margin-bottom 10px
+    margin-left 14px
+    margin-right 14px
     padding 5px
     border-radius 4px
 }
+.keywords{
+    width 180px
+    height 36px
+}
 .filenames{
-    width 240px
-    height 30px
-    margin-left 20px
-    padding 5px
-    border-radius 4px
+    width 280px
+    height 36px
 }
 </style>

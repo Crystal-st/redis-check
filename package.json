@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vxe-table": "^3.2.19",
+    "xe-utils": "^3.1.15"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -45,6 +46,7 @@
     "stylus-loader": "^3.0.1",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue": "^2.6.12",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
