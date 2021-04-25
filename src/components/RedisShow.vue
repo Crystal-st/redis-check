@@ -9,7 +9,7 @@ import PointTable from './pages/PointTable'
 export default{
     name: 'RedisShow',
     components: {
-        PointTable
+        PointTable,
     }
 }
 </script>
