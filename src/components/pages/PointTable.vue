@@ -18,77 +18,64 @@
         <!-- tab1 -->
         <div v-show="selectTab === 'tab1'" class="Vtable">
             <vxe-table
-                
+                v-for="(item, index) in tabData1"
+                v-bind:key="index"
+                v-bind:data="item"
                 border
                 show-overflow
                 row-id="id"
                 size="middle"
-                :loading="loading3"
+                :loading="loading"
                 :sync-resize="selectTab"
-                :data="tableData"
                 class="table1">
-                <vxe-table-column type="seq" width="60px"></vxe-table-column>
+                <!-- <vxe-table-column type="seq" width="60px"></vxe-table-column> -->
                 <vxe-table-column field="name" title="点名" width="50%"></vxe-table-column>
-                <vxe-table-column filed="value" title="数值" width="50%"></vxe-table-column>
-            </vxe-table>
-            <vxe-table
-                
-                border
-                :sync-resize="selectTab"
-                :data="tableData"
-                class="table1">
-                <vxe-table-column type="seq" width="60px"></vxe-table-column>
-                <vxe-table-column field="name" title="点名" width="50%"></vxe-table-column>
-                <vxe-table-column filed="value" title="数值" width="50%"></vxe-table-column>
-            </vxe-table>
-            <vxe-table
-                
-                border
-                :sync-resize="selectTab"
-                :data="tableData"
-                class="table1">
-                <vxe-table-column type="seq" width="60px"></vxe-table-column>
-                <vxe-table-column field="name" title="点名" width="50%"></vxe-table-column>
-                <vxe-table-column filed="value" title="数值" width="50%"></vxe-table-column>
+                <vxe-table-column field="value" title="数值" width="50%"></vxe-table-column>
             </vxe-table>
         </div>
 
         <!-- tab2 -->
         <div v-show="selectTab === 'tab2'" class="Vtable">
             <vxe-table
-                round
                 border
                 :sync-resize="selectTab"
-                :data="tableData">
-                <vxe-table-column type="seq" width="60px"></vxe-table-column>
-                <vxe-table-column field="name" title="点名" width="10%"></vxe-table-column>
-                <vxe-table-column filed="value" title="数值" width="10%"></vxe-table-column>
+                :data="tabData2">
+                <!-- <vxe-table-column type="seq" width="60px"></vxe-table-column> -->
+                <vxe-table-column field="name" title="点名" width="50%"></vxe-table-column>
+                <vxe-table-column field="value" title="数值" width="50%"></vxe-table-column>
             </vxe-table>
         </div>
 
         <!-- tab3 -->
         <div v-show="selectTab === 'tab3'" class="Vtable">
             <vxe-table
-                round
+                v-for="(item, index) in tabData3"
+                v-bind:key="index"
+                v-bind:data="item"
                 border
+                show-overflow
+                row-id="id"
+                size="middle"
+                :loading="loading"
                 :sync-resize="selectTab"
-                :data="tableData">
-                <vxe-table-column type="seq" width="60px"></vxe-table-column>
-                <vxe-table-column field="name" title="点名" width="10%"></vxe-table-column>
-                <vxe-table-column filed="value" title="数值" width="10%"></vxe-table-column>
+                class="table1">
+                <!-- <vxe-table-column type="seq" width="60px"></vxe-table-column> -->
+                <vxe-table-column field="name" title="点名" width="50%"></vxe-table-column>
+                <vxe-table-column field="value" title="数值" width="50%"></vxe-table-column>
             </vxe-table>
         </div>
-
+        
+        <!-- 翻页 -->
         <div>
             <vxe-pager
                 size="small"
-                :loading="loading3"
-                :current-page="tablePage3.currentPage"
-                :page-size="tablePage3.pageSize"
-                :total="tablePage3.totalResult"
-                :page-sizes="[10, 20, 30]"
+                :loading="loading"
+                :current-page="tablePage.currentPage"
+                :page-size="tablePage.pageSize"
+                :total="tablePage.totalResult"
+                :page-sizes="[30, 60, 90]"
                 :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
-                @page-change="handlePageChange3"
+                @page-change="handlePageChange"
                 class="page"
             >
             </vxe-pager>
@@ -106,21 +93,16 @@
       },
       data(){
           return{
-              selectTab: 'tab1',
-              tableData: [
-                  { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                  { id: 10002, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                  { id: 10003, name: 'Test3', role: 'PM', sex: 'Man', age: 32, address: 'Shanghai' },
-                  { id: 10004, name: 'Test4', role: 'Designer', sex: 'Women ', age: 23, address: 'vxe-table 从入门到放弃' },
-                  { id: 10005, name: 'Test5', role: 'Develop', sex: 'Women ', age: 30, address: 'Shanghai' },
-                  { id: 10006, name: 'Test6', role: 'Designer', sex: 'Women ', age: 21, address: 'vxe-table 从入门到放弃' },
-                  { id: 10007, name: 'Test7', role: 'Test', sex: 'Man ', age: 29, address: 'vxe-table 从入门到放弃' },
-                  { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
-                  { id: 10009, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                  { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                selectTab: 'tab1',
+                tabData1: [
+                    [],[],[]
                 ],
-                loading3: false,
-                tablePage3: {
+                tabData2: [ [] ],
+                tabData3: [
+                    [],[],[]
+                ],
+                loading: false,
+                tablePage: {
                     currentPage: 1,
                     pageSize: 30,
                     totalResult: 0
@@ -128,14 +110,16 @@
             }
         },
         created(){
-            this.findList3()
+            this.findList1(),
+            this.findList2()
         },
         methods: {
-            findList3(){
-                this.loading3=true,
+            findList1(){
+                this.loading=true,
                 setTimeout(()=>{
-                    this.loading3=false
-                    this.tablePage3.totalResult=60
+                    this.loading=false
+                    this.tablePage.totalResult=60
+
                     this.tableData=[
                     { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
                     { id: 10002, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
@@ -147,13 +131,99 @@
                     { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
                     { id: 10009, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
                     { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
                     ]
+                    let fillNum = 30 - this.tableData.length
+                    let fillArray = Array(fillNum).fill({})
+
+                    this.tableData = this.tableData.concat(fillArray)
+                    console.log(this.tableData)
+                    let first = []
+                    let sec = []
+                    let thr = []
+                    if(this.tableData.length>=10) {
+                        first = this.tableData.slice(0,10)
+                    }else{
+                        first = this.tableData.slice(0)
+                    }
+
+                    if(this.tableData.length<=10) {
+                        sec = []
+                    }else if(this.tableData.length>=20) {
+                        sec = this.tableData.slice(10,20)
+                    }else{
+                        sec = this.tableData.slice(10)
+                    }
+
+                    if(this.tableData.length<=20) {
+                        thr = []
+                    }else 
+                    if(this.tableData.length>=30) {
+                        thr = this.tableData.slice(20,30)
+                    }else{
+                        thr = this.tableData.slice(20)
+                    }
+                    this.tabData1 = [first, sec, thr]
+                    
                 },300)
             },
-            handlePageChange3({currentPage,pageSize}){
-                this.tablePage3.currentPage = currentPage
-                this.currentPage.pageSize = pageSize
-                this.findList3()
+            findList2(){
+                this.loading=true,
+                setTimeout(()=>{
+                    this.loading=false
+                    this.tablePage.totalResult=60
+
+                    this.tableData=[
+                    { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    { id: 10002, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    { id: 10003, name: 'Test3', role: 'PM', sex: 'Man', age: 32, address: 'Shanghai' },
+                    { id: 10004, name: 'Test4', role: 'Designer', sex: 'Women ', age: 23, address: 'vxe-table 从入门到放弃' },
+                    { id: 10005, name: 'Test5', role: 'Develop', sex: 'Women ', age: 30, address: 'Shanghai' },
+                    { id: 10006, name: 'Test6', role: 'Designer', sex: 'Women ', age: 21, address: 'vxe-table 从入门到放弃' },
+                    { id: 10007, name: 'Test7', role: 'Test', sex: 'Man ', age: 29, address: 'vxe-table 从入门到放弃' },
+                    { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
+                    { id: 10009, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    ]
+                    let fillNum = 30 - this.tableData.length
+                    let fillArray = Array(fillNum).fill({})
+
+                    this.tableData = this.tableData.concat(fillArray)
+                    console.log(this.tableData)
+                    let first = []
+                    let sec = []
+                    let thr = []
+                    if(this.tableData.length>=10) {
+                        first = this.tableData.slice(0,10)
+                    }else{
+                        first = this.tableData.slice(0)
+                    }
+
+                    if(this.tableData.length<=10) {
+                        sec = []
+                    }else if(this.tableData.length>=20) {
+                        sec = this.tableData.slice(10,20)
+                    }else{
+                        sec = this.tableData.slice(10)
+                    }
+
+                    if(this.tableData.length<=20) {
+                        thr = []
+                    }else 
+                    if(this.tableData.length>=30) {
+                        thr = this.tableData.slice(20,30)
+                    }else{
+                        thr = this.tableData.slice(20)
+                    }
+                    this.tabData1 = [first, sec, thr]
+                    
+                },300)
+            },
+            handlePageChange({currentPage,pageSize}){
+                this.tablePage.currentPage = currentPage
+                this.tablePage.pageSize = pageSize
+                this.findList1()
             }
         }
     }  

@@ -25,7 +25,7 @@ export default {
            //console.log(this.FormList)
            let keyword = event.target.value
            let $this = this
-           axios.get('http://127.0.0.1:8080/index?keyword=' + keyword)
+           axios.get('http://127.0.0.1:8080/index?keyword=' + keyword + "&pageSize=1" + "&page=3")
             .then(function (response) {
                 // handle success
                 //console.log(response);
