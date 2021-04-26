@@ -38,6 +38,10 @@
         <div v-show="selectTab === 'tab2'" class="Vtable">
             <vxe-table
                 border
+                show-overflow
+                row-id="id"
+                size="middle"
+                :loading="loading"
                 :sync-resize="selectTab"
                 :data="tabData2">
                 <!-- <vxe-table-column type="seq" width="60px"></vxe-table-column> -->
@@ -65,7 +69,7 @@
             </vxe-table>
         </div>
         
-        <!-- 翻页 -->
+        <!-- 翻页功能 -->
         <div>
             <vxe-pager
                 size="small"
@@ -110,15 +114,15 @@
             }
         },
         created(){
-            this.findList1(),
-            this.findList2()
+            this.findList()
+            // this.findList2()
         },
         methods: {
-            findList1(){
+            findList(){
                 this.loading=true,
                 setTimeout(()=>{
                     this.loading=false
-                    this.tablePage.totalResult=60
+                    this.tablePage.totalResult=8
 
                     this.tableData=[
                     { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
@@ -129,101 +133,62 @@
                     { id: 10006, name: 'Test6', role: 'Designer', sex: 'Women ', age: 21, address: 'vxe-table 从入门到放弃' },
                     { id: 10007, name: 'Test7', role: 'Test', sex: 'Man ', age: 29, address: 'vxe-table 从入门到放弃' },
                     { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
-                    { id: 10009, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10009, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
                     ]
+                    // 功能码2和功能码4填充满30个数据
                     let fillNum = 30 - this.tableData.length
                     let fillArray = Array(fillNum).fill({})
 
-                    this.tableData = this.tableData.concat(fillArray)
-                    console.log(this.tableData)
+                    this.tableData1 = this.tableData.concat(fillArray)
+                    // console.log(this.tableData)
                     let first = []
                     let sec = []
                     let thr = []
-                    if(this.tableData.length>=10) {
-                        first = this.tableData.slice(0,10)
+                    if(this.tableData1.length>=10) {
+                        first = this.tableData1.slice(0,10)
                     }else{
-                        first = this.tableData.slice(0)
+                        first = this.tableData1.slice(0)
                     }
 
-                    if(this.tableData.length<=10) {
+                    if(this.tableData1.length<=10) {
                         sec = []
-                    }else if(this.tableData.length>=20) {
-                        sec = this.tableData.slice(10,20)
+                    }else if(this.tableData1.length>=20) {
+                        sec = this.tableData1.slice(10,20)
                     }else{
                         sec = this.tableData.slice(10)
                     }
 
-                    if(this.tableData.length<=20) {
+                    if(this.tableData1.length<=20) {
                         thr = []
                     }else 
-                    if(this.tableData.length>=30) {
-                        thr = this.tableData.slice(20,30)
+                    if(this.tableData1.length>=30) {
+                        thr = this.tableData1.slice(20,30)
                     }else{
-                        thr = this.tableData.slice(20)
+                        thr = this.tableData1.slice(20)
                     }
                     this.tabData1 = [first, sec, thr]
+                    this.tabData3 = [first, sec, thr]
+
+                    // 功能码3填充满10个数据
+                    let fillNum2 = 10 - this.tableData.length
+                    // console.log(this.tableData.length)
+                    let fillArray2 = Array(fillNum2).fill({})
+                    this.tableData2 = this.tableData.concat(fillArray2) //把表格填充为10行
+                    console.log(this.tableData2)
+                    this.tabData2 = this.tableData2.slice(0) //显示功能码3的数据
                     
                 },300)
             },
-            findList2(){
-                this.loading=true,
-                setTimeout(()=>{
-                    this.loading=false
-                    this.tablePage.totalResult=60
-
-                    this.tableData=[
-                    { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10002, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10003, name: 'Test3', role: 'PM', sex: 'Man', age: 32, address: 'Shanghai' },
-                    { id: 10004, name: 'Test4', role: 'Designer', sex: 'Women ', age: 23, address: 'vxe-table 从入门到放弃' },
-                    { id: 10005, name: 'Test5', role: 'Develop', sex: 'Women ', age: 30, address: 'Shanghai' },
-                    { id: 10006, name: 'Test6', role: 'Designer', sex: 'Women ', age: 21, address: 'vxe-table 从入门到放弃' },
-                    { id: 10007, name: 'Test7', role: 'Test', sex: 'Man ', age: 29, address: 'vxe-table 从入门到放弃' },
-                    { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
-                    { id: 10009, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10010, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    ]
-                    let fillNum = 30 - this.tableData.length
-                    let fillArray = Array(fillNum).fill({})
-
-                    this.tableData = this.tableData.concat(fillArray)
-                    console.log(this.tableData)
-                    let first = []
-                    let sec = []
-                    let thr = []
-                    if(this.tableData.length>=10) {
-                        first = this.tableData.slice(0,10)
-                    }else{
-                        first = this.tableData.slice(0)
-                    }
-
-                    if(this.tableData.length<=10) {
-                        sec = []
-                    }else if(this.tableData.length>=20) {
-                        sec = this.tableData.slice(10,20)
-                    }else{
-                        sec = this.tableData.slice(10)
-                    }
-
-                    if(this.tableData.length<=20) {
-                        thr = []
-                    }else 
-                    if(this.tableData.length>=30) {
-                        thr = this.tableData.slice(20,30)
-                    }else{
-                        thr = this.tableData.slice(20)
-                    }
-                    this.tabData1 = [first, sec, thr]
-                    
-                },300)
-            },
+           
             handlePageChange({currentPage,pageSize}){
                 this.tablePage.currentPage = currentPage
                 this.tablePage.pageSize = pageSize
-                this.findList1()
+                this.findList()
             }
         }
     }  
