@@ -1,5 +1,5 @@
 <template>
-    <div class="pointtable">
+    <div class="pointtable" style="display:flex; flex-direction:column">
         <div style="position: relative;">
             <!-- 把formselect作为子组件插入 -->
             <form-select style="display:inline-block;"></form-select>
@@ -15,7 +15,7 @@
             </p>
         </div>
         <!-- 多页签设置 每行存放三列数据-->
-        <!-- tab1 -->
+        <!-- tab1 功能码2-->
         <div v-show="selectTab === 'tab1'" class="Vtable">
             <vxe-table
                 v-for="(item, index) in tabData1"
@@ -34,7 +34,7 @@
             </vxe-table>
         </div>
 
-        <!-- tab2 -->
+        <!-- tab2 功能码3-->
         <div v-show="selectTab === 'tab2'" class="Vtable">
             <vxe-table
                 border
@@ -50,7 +50,7 @@
             </vxe-table>
         </div>
 
-        <!-- tab3 -->
+        <!-- tab3 功能码4-->
         <div v-show="selectTab === 'tab3'" class="Vtable">
             <vxe-table
                 v-for="(item, index) in tabData3"
@@ -115,7 +115,6 @@
         },
         created(){
             this.findList()
-            // this.findList2()
         },
         methods: {
             findList(){
