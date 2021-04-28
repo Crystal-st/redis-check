@@ -15,7 +15,7 @@ export default {
     name: 'FormSelect',
     data() {
        return {
-           KeyList: ['请选择关键字','Collect','Retransmit'],
+           KeyList: ['请选择关键字','104Retransmit','ModbusRetransmit'],
            FormList: ['请选择点表'],
        }
    },

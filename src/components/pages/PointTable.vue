@@ -79,7 +79,7 @@
                 :current-page="tablePage.currentPage"
                 :page-size="tablePage.pageSize"
                 :total="tablePage.totalResult"
-                :page-sizes="[30]"
+                :page-sizes="[30,60,90,150]"
                 :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
                 @page-change="handlePageChange"
                 class="page"
