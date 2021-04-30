@@ -79,7 +79,7 @@
                 :current-page="tablePage.currentPage"
                 :page-size="tablePage.pageSize"
                 :total="tablePage.totalResult"
-                :page-sizes="[30,60,90,150]"
+                :page-sizes="[30,60,90,150,300]"
                 :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
                 @page-change="handlePageChange"
                 class="page"
@@ -126,53 +126,53 @@
                     this.tablePage.totalResult=44
 
                     this.tableData=[
-                    { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10002, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10003, name: 'Test3', role: 'PM', sex: 'Man', age: 32, address: 'Shanghai' },
-                    { id: 10004, name: 'Test4', role: 'Designer', sex: 'Women ', age: 23, address: 'vxe-table 从入门到放弃' },
-                    { id: 10005, name: 'Test5', role: 'Develop', sex: 'Women ', age: 30, address: 'Shanghai' },
-                    { id: 10006, name: 'Test6', role: 'Designer', sex: 'Women ', age: 21, address: 'vxe-table 从入门到放弃' },
-                    { id: 10007, name: 'Test7', role: 'Test', sex: 'Man ', age: 29, address: 'vxe-table 从入门到放弃' },
-                    { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
-                    { id: 10009, name: 'Test9', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10010, name: 'Test10', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10011, name: 'Test11', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10012, name: 'Test12', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10013, name: 'Test13', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10014, name: 'Test14', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10015, name: 'Test15', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10016, name: 'Test16', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10017, name: 'Test17', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10018, name: 'Test18', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10019, name: 'Test19', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10020, name: 'Test20', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10021, name: 'Test21', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10022, name: 'Test22', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10023, name: 'Test23', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10024, name: 'Test24', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10025, name: 'Test25', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10026, name: 'Test26', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10027, name: 'Test27', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10028, name: 'Test28', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10029, name: 'Test29', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10030, name: 'Test30', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10031, name: 'Test31', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10032, name: 'Test32', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10033, name: 'Test33', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10034, name: 'Test34', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10035, name: 'Test35', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10036, name: 'Test36', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10037, name: 'Test37', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10038, name: 'Test38', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10039, name: 'Test39', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    { id: 10040, name: 'Test40', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10041, name: 'Test41', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10042, name: 'Test42', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10043, name: 'Test43', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    { id: 10044, name: 'Test44', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10002, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10003, name: 'Test3', role: 'PM', sex: 'Man', age: 32, address: 'Shanghai' },
+                    // { id: 10004, name: 'Test4', role: 'Designer', sex: 'Women ', age: 23, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10005, name: 'Test5', role: 'Develop', sex: 'Women ', age: 30, address: 'Shanghai' },
+                    // { id: 10006, name: 'Test6', role: 'Designer', sex: 'Women ', age: 21, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10007, name: 'Test7', role: 'Test', sex: 'Man ', age: 29, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10009, name: 'Test9', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10010, name: 'Test10', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10011, name: 'Test11', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10012, name: 'Test12', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10013, name: 'Test13', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10014, name: 'Test14', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10015, name: 'Test15', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10016, name: 'Test16', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10017, name: 'Test17', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10018, name: 'Test18', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10019, name: 'Test19', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10020, name: 'Test20', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10021, name: 'Test21', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10022, name: 'Test22', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10023, name: 'Test23', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10024, name: 'Test24', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10025, name: 'Test25', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10026, name: 'Test26', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10027, name: 'Test27', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10028, name: 'Test28', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10029, name: 'Test29', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10030, name: 'Test30', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10031, name: 'Test31', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10032, name: 'Test32', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10033, name: 'Test33', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10034, name: 'Test34', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10035, name: 'Test35', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10036, name: 'Test36', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10037, name: 'Test37', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10038, name: 'Test38', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10039, name: 'Test39', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
+                    // { id: 10040, name: 'Test40', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10041, name: 'Test41', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10042, name: 'Test42', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10043, name: 'Test43', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
+                    // { id: 10044, name: 'Test44', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
                     ]
                     // 功能码2和功能码4填充满30个数据
-                    let fillNum =Math.ceil(this.tableData.length/30)*30 - this.tableData.length
+                    let fillNum =30 - this.tableData.length
                     let fillArray = Array(fillNum).fill({})
 
                     this.tableData1 = this.tableData.concat(fillArray)
@@ -206,7 +206,7 @@
                     this.tabData3 = [first, sec, thr]
 
                     // 功能码3填充满10个数据
-                    let fillNum2 = Math.abs(10 - this.tableData.length)
+                    let fillNum2 = 10 - this.tableData.length
                     // console.log(this.tableData.length)
                     let fillArray2 = Array(fillNum2).fill({})
                     this.tableData2 = this.tableData.concat(fillArray2) //把表格填充为10行
