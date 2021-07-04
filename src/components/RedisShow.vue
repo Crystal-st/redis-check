@@ -16,7 +16,7 @@ export default{
 
 <style scoped lang="stylus">
 .bg{
-    height: 800px
+    height 2000px
     background-size cover
     background-image url('~@/assets/images/bg.png')
     background-repeat none 

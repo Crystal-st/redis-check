@@ -18,7 +18,7 @@
         <!-- tab1 功能码2-->
         <div v-show="selectTab === 'tab1'" class="Vtable">
             <vxe-table
-                v-for="(item, index) in tabData1"
+                v-for="(item, index) in tabData1()"
                 v-bind:key="index"
                 v-bind:data="item"
                 border
@@ -31,7 +31,7 @@
                 <!-- <vxe-table-column type="seq" width="60px"></vxe-table-column> -->
                 <vxe-table-column field="name" title="点名" width="33.5%"></vxe-table-column>
                 <vxe-table-column field="value" title="数值" width="33.5%"></vxe-table-column>
-                <vxe-table-column field="adress" title="地址" width="33%"></vxe-table-column>
+                <vxe-table-column field="address" title="地址" width="33%"></vxe-table-column>
             </vxe-table>
         </div>
 
@@ -44,17 +44,18 @@
                 size="middle"
                 :loading="loading"
                 :sync-resize="selectTab"
-                :data="tabData2">
+                :data="tabData2()">
                 <!-- <vxe-table-column type="seq" width="60px"></vxe-table-column> -->
-                <vxe-table-column field="name" title="点名" width="50%"></vxe-table-column>
-                <vxe-table-column field="value" title="数值" width="50%"></vxe-table-column>
+                <vxe-table-column field="name" title="点名" width="33.5%"></vxe-table-column>
+                <vxe-table-column field="value" title="数值" width="33.5%"></vxe-table-column>
+                <vxe-table-column field="address" title="地址" width="33%"></vxe-table-column>
             </vxe-table>
         </div>
 
         <!-- tab3 功能码4-->
         <div v-show="selectTab === 'tab3'" class="Vtable">
             <vxe-table
-                v-for="(item, index) in tabData3"
+                v-for="(item, index) in tabData3()"
                 v-bind:key="index"
                 v-bind:data="item"
                 border
@@ -67,7 +68,7 @@
                 <!-- <vxe-table-column type="seq" width="60px"></vxe-table-column> -->
                 <vxe-table-column field="name" title="点名" width="33.5%"></vxe-table-column>
                 <vxe-table-column field="value" title="数值" width="33.5%"></vxe-table-column>
-                <vxe-table-column field="adress" title="地址" width="33%"></vxe-table-column>
+                <vxe-table-column field="address" title="地址" width="33%"></vxe-table-column>
             </vxe-table>
         </div>
         
@@ -91,134 +92,191 @@
 </template>
   
 <script>
+import axios from 'axios'
   import FormSelect from './FormSelect'
   export default {
       name: 'PointTable',
       components: {
           FormSelect
       },
+      computed: {
+            selectTab: {
+                // getter
+                get: function () {
+                    return this.currentTab
+                },
+                // setter
+                set: function (newValue) {
+                    console.log("newvalue:" + newValue);
+                    switch(newValue) {
+                        case "tab1": this.tablePage = this.tab1Page; break; 
+                        case "tab2": this.tablePage = this.tab2Page; break;
+                        case "tab3": this.tablePage = this.tab3Page; break;
+                    } 
+                    
+                    this.currentTab = newValue
+                }
+            },
+            
+            
+            
+
+      },
       data(){
           return{
-                selectTab: 'tab1',
-                tabData1: [
-                    [],[],[]
-                ],
-                tabData2: [ [] ],
-                tabData3: [
-                    [],[],[]
-                ],
+                currentTab: 'tab1',
                 loading: false,
+                
+                allTab1Data: [],
+                allTab2Data: [],
+                allTab3Data: [],
+                tab1Page: {
+                    currentPage: 1,
+                    pageSize: 30,
+                    totalResult: 0
+                },
+                tab2Page: {
+                    currentPage: 1,
+                    pageSize: 30,
+                    totalResult: 0
+                },
+                tab3Page: {
+                    currentPage: 1,
+                    pageSize: 30,
+                    totalResult: 0
+                },
                 tablePage: {
                     currentPage: 1,
                     pageSize: 30,
                     totalResult: 0
-                }
+                },
+                
             }
         },
         created(){
+            this.tablePage = this.tab1Page;
             this.findList()
         },
         methods: {
-            findList(){
-                this.loading=true,
-                setTimeout(()=>{
-                    this.loading=false
-                    this.tablePage.totalResult=44
+            tabData3 () {
+                    const page = this.tab3Page.currentPage
+                    const offset = (page - 1) * this.tab3Page.pageSize
+                    let end = offset + this.tab3Page.pageSize
 
-                    this.tableData=[
-                    // { id: 10001, name: 'Test1', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10002, name: 'Test2', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10003, name: 'Test3', role: 'PM', sex: 'Man', age: 32, address: 'Shanghai' },
-                    // { id: 10004, name: 'Test4', role: 'Designer', sex: 'Women ', age: 23, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10005, name: 'Test5', role: 'Develop', sex: 'Women ', age: 30, address: 'Shanghai' },
-                    // { id: 10006, name: 'Test6', role: 'Designer', sex: 'Women ', age: 21, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10007, name: 'Test7', role: 'Test', sex: 'Man ', age: 29, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10008, name: 'Test8', role: 'Develop', sex: 'Man ', age: 35, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10009, name: 'Test9', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10010, name: 'Test10', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10011, name: 'Test11', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10012, name: 'Test12', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10013, name: 'Test13', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10014, name: 'Test14', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10015, name: 'Test15', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10016, name: 'Test16', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10017, name: 'Test17', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10018, name: 'Test18', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10019, name: 'Test19', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10020, name: 'Test20', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10021, name: 'Test21', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10022, name: 'Test22', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10023, name: 'Test23', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10024, name: 'Test24', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10025, name: 'Test25', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10026, name: 'Test26', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10027, name: 'Test27', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10028, name: 'Test28', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10029, name: 'Test29', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10030, name: 'Test30', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10031, name: 'Test31', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10032, name: 'Test32', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10033, name: 'Test33', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10034, name: 'Test34', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10035, name: 'Test35', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10036, name: 'Test36', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10037, name: 'Test37', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10038, name: 'Test38', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10039, name: 'Test39', role: 'Develop', sex: 'Man', age: 28, address: 'vxe-table 从入门到放弃' },
-                    // { id: 10040, name: 'Test40', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10041, name: 'Test41', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10042, name: 'Test42', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10043, name: 'Test43', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    // { id: 10044, name: 'Test44', role: 'Test', sex: 'Women', age: 22, address: 'Guangzhou' },
-                    ]
-                    // 功能码2和功能码4填充满30个数据
-                    let fillNum =30 - this.tableData.length
-                    let fillArray = Array(fillNum).fill({})
+                    if(end > this.allTab3Data.length -1) {
+                        end = this.allTab3Data.length 
+                    }
+                    const current = this.allTab3Data.slice(offset, end)
+                    return this.reFill(current, this.tab3Page.pageSize)
+            },
+            tabData2 () {
+                    const page = this.tab2Page.currentPage
+                    const offset = (page - 1) * this.tab2Page.pageSize
+                    let end = offset + this.tab2Page.pageSize
 
-                    this.tableData1 = this.tableData.concat(fillArray)
+                    if(end > this.allTab2Data.length -1) {
+                        end = this.allTab2Data.length 
+                    }
+                    const current = this.allTab2Data.slice(offset, end)
+                    let fillNum = this.tab2Page.pageSize - current.length
+                    let tableData1 = current
+                    if(fillNum>0) {
+                        const fillArray = Array(fillNum).fill({})
+                        tableData1 = current.concat(fillArray)
+                    }
+                    return tableData1
+            },
+            tabData1 () {
+                    const page = this.tab1Page.currentPage
+                    const offset = (page - 1) * this.tab1Page.pageSize
+                    let end = offset + this.tab1Page.pageSize
+
+                    if(end > this.allTab1Data.length -1) {
+                        end = this.allTab1Data.length 
+                    }
+                    const current = this.allTab1Data.slice(offset, end)
+                    console.log("current:" + current);
+                    console.log("pageSize:" + this.tab1Page.pageSize);
+                    return this.reFill(current, this.tab1Page.pageSize)
+            },
+            reFill(tableData, pageSize) { //tableData.length<=this.pageSize 
+                    // 功能码2和功能码4填充满pageSize个数据
+                    let fillNum = pageSize - tableData.length
+                    let tableData1 = tableData
+                    if(fillNum>0) {
+                        const fillArray = Array(fillNum).fill({})
+                        tableData1 = tableData.concat(fillArray)
+                    }
+                    
                     // console.log(this.tableData1)
                     let first = []
                     let sec = []
                     let thr = []
-                    if(this.tableData1.length>=10) {
-                        first = this.tableData1.slice(0,10)
+                    const splitPageSize = pageSize/3;
+                    if(tableData1.length>=splitPageSize) {
+                        first = tableData1.slice(0,splitPageSize)
                     }else{
-                        first = this.tableData1.slice(0)
+                        first = tableData1.slice(0)
                     }
 
-                    if(this.tableData1.length<=10) {
+                    if(tableData1.length<=splitPageSize) {
                         sec = []
-                    }else if(this.tableData1.length>=20) {
-                        sec = this.tableData1.slice(10,20)
+                    }else if(tableData1.length>=splitPageSize * 2) {
+                        sec = tableData1.slice(splitPageSize,splitPageSize * 2)
                     }else{
-                        sec = this.tableData.slice(10)
+                        sec = tableData.slice(10)
                     }
 
-                    if(this.tableData1.length<=20) {
+                    if(tableData1.length<=splitPageSize * 2) {
                         thr = []
                     }else 
-                    if(this.tableData1.length>=30) {
-                        thr = this.tableData1.slice(20,30)
+                    if(tableData1.length>=splitPageSize * 3) {
+                        thr = tableData1.slice(splitPageSize * 2,splitPageSize * 3)
                     }else{
-                        thr = this.tableData1.slice(20)
+                        thr = tableData1.slice(splitPageSize * 2)
                     }
-                    this.tabData1 = [first, sec, thr]
-                    this.tabData3 = [first, sec, thr]
+                    return  [first, sec, thr]
+                    //this.tabData1 = [first, sec, thr]
+                    // this.tabData3 = [first, sec, thr]
 
-                    // 功能码3填充满10个数据
-                    let fillNum2 = 10 - this.tableData.length
-                    // console.log(this.tableData.length)
-                    let fillArray2 = Array(fillNum2).fill({})
-                    this.tableData2 = this.tableData.concat(fillArray2) //把表格填充为10行
-                    // console.log(this.tableData2)
-                    this.tabData2 = this.tableData2.slice(0,10) //显示功能码3的数据
+                    // // 功能码3填充满10个数据
+                    // let fillNum2 = 10 - this.tableData.length
+                    // // console.log(this.tableData.length)
+                    // let fillArray2 = Array(fillNum2).fill({})
+            },
+            findList(){
+                this.loading=true,
+                axios.get("http://localhost:8080/redis", {params: {path: "/Users/st/Desktop/IEC104Retransmit_1.csv"}}).then(res=>{
+                    this.loading=false
+                    let allTab1Data=[], allTab2Data=[], allTab3Data=[]
+                    console.log("len:" + res.data.length);
+                    for(let i=0; i<res.data.length; i++) {
+                        console.log("item:" + res.data[i].items.length);
+                        if(res.data[i].dataConfig==2) {
+                            this.allTab1Data = res.data[i].items
+                            this.tab1Page.totalResult = this.allTab1Data.length
+                            if(this.currentTab=='tab1') {this.tablePage.totalResult = this.tab1Page.totalResult  }
+                        }
+                        else if(res.data[i].dataConfig==3) {
+                            this.allTab2Data = res.data[i].items
+                            this.tab2Page.totalResult = this.allTab2Data.length
+                            if(this.currentTab=='tab2') {this.tablePage.totalResult = this.tab2Page.totalResult  }
+
+                        }
+                        else if(res.data[i].dataConfig==4) {
+                            this.allTab3Data = res.data[i].items
+                            this.tab3Page.totalResult = this.allTab3Data.length
+                            if(this.currentTab=='tab3') {this.tablePage.totalResult = this.tab3Page.totalResult  }
+                        }
+                    }
                     
-                },300)
+                })
             },
            
             handlePageChange({currentPage,pageSize}){
                 this.tablePage.currentPage = currentPage
-                // console.log(this.tablePage.currentPage)
+                console.log("currentPage:" + this.tablePage.currentPage)
+                console.log("cur_pagesize:" + pageSize);
                 this.tablePage.pageSize = pageSize
                 console.log(pageSize)
                 this.findList()
@@ -249,7 +307,7 @@
         float left
         width 33.3%
     }
-    .page{
-        margin 0 15px 8px 14px
+    .page{  
+        margin 100px 15px 8px 14px
     }
   </style>
