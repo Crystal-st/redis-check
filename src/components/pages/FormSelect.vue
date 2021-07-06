@@ -15,26 +15,28 @@ export default {
     name: 'FormSelect',
     data() {
        return {
+           keyword: "",
            KeyList: ['请选择关键字','104Retransmit','ModbusRetransmit'],
            FormList: ['请选择点表'],
        }
    },
    methods: {
        selectKeyword:function(event){
-           console.log(event.target.value)
+           //console.log(event.target.value)
            //console.log(this.FormList)
-           let keyword = event.target.value
+           this.keyword = event.target.value
            let $this = this
-           axios.get('http://127.0.0.1:8080/index?keyword=' + keyword + "&pageSize=30" + "&page=3")
+           axios.get('http://127.0.0.1:8080/index?keyword=' + this.keyword)
             .then(function (response) {
                 // handle success
                 //console.log(response);
-                console.log(response.data);
+                //console.log(response.data);
                 if(response.data.length==0) {
                     $this.FormList = ['请选择点表']
                 }
                 else{
                     $this.FormList = response.data
+                    $this.$emit('type-change', {name: $this.keyword, path: response.data[0], })
                 }
                 
             })
@@ -46,8 +48,8 @@ export default {
                 // always executed
             });
        },
-       selectFile:function(){
-           
+       selectFile:function(event){
+           this.$emit('type-change', {name: this.keyword, path:event.target.value, })
        }   
    }
 

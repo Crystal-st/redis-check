@@ -2,7 +2,7 @@
     <div class="pointtable" style="display:flex; flex-direction:column">
         <div style="position: relative;">
             <!-- 把formselect作为子组件插入 -->
-            <form-select style="display:inline-block;"></form-select>
+            <form-select  v-on:type-change="typeChange" style="display:inline-block;"></form-select>
 
             <!-- 用于显示数据点的表格 -->
             <!-- 多页签切换 -->
@@ -14,6 +14,23 @@
                 </vxe-radio-group>
             </p>
         </div>
+
+            <!-- 翻页功能 -->
+            <div>
+                <vxe-pager
+                    size="small"
+                    :loading="loading"
+                    :current-page="tablePage.currentPage"
+                    :page-size="tablePage.pageSize"
+                    :total="tablePage.totalResult"
+                    :page-sizes="[30,60,90]"
+                    :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
+                    @page-change="handlePageChange"
+                    class="page"
+                >
+                </vxe-pager>
+            </div>   
+
         <!-- 多页签设置 每行存放三列数据-->
         <!-- tab1 功能码2-->
         <div v-show="selectTab === 'tab1'" class="Vtable">
@@ -72,21 +89,7 @@
             </vxe-table>
         </div>
         
-        <!-- 翻页功能 -->
-        <div>
-            <vxe-pager
-                size="small"
-                :loading="loading"
-                :current-page="tablePage.currentPage"
-                :page-size="tablePage.pageSize"
-                :total="tablePage.totalResult"
-                :page-sizes="[30,60,90,150,300]"
-                :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
-                @page-change="handlePageChange"
-                class="page"
-            >
-            </vxe-pager>
-        </div>   
+       
     </div>
     
 </template>
@@ -155,7 +158,7 @@ import axios from 'axios'
         },
         created(){
             this.tablePage = this.tab1Page;
-            this.findList()
+            this.findList({})
         },
         methods: {
             tabData3 () {
@@ -244,11 +247,28 @@ import axios from 'axios'
                     // // console.log(this.tableData.length)
                     // let fillArray2 = Array(fillNum2).fill({})
             },
-            findList(){
+            typeChange({name, path}) {
+                //console.log(arguments[0])
+                this.findList({name, path})
+            },
+            findList({
+                name, path
+            }){
+                if(!name || !path) {return}
                 this.loading=true,
-                axios.get("http://localhost:8080/redis", {params: {path: "/Users/st/Desktop/IEC104Retransmit_1.csv"}}).then(res=>{
+                axios.get("http://localhost:8080/redis", {params: {
+                        path, 
+                        name,
+                    }}).then(res=>{
                     this.loading=false
                     let allTab1Data=[], allTab2Data=[], allTab3Data=[]
+                    this.allTab1Data = []
+                    this.allTab2Data = []
+                    this.allTab3Data = []
+                    this.tab1Page.totalResult = 0
+                    this.tab2Page.totalResult = 0
+                    this.tab3Page.totalResult = 0
+                    this.tablePage.totalResult = 0
                     console.log("len:" + res.data.length);
                     for(let i=0; i<res.data.length; i++) {
                         console.log("item:" + res.data[i].items.length);
@@ -279,7 +299,7 @@ import axios from 'axios'
                 console.log("cur_pagesize:" + pageSize);
                 this.tablePage.pageSize = pageSize
                 console.log(pageSize)
-                this.findList()
+                //this.findList()
             }
         }
     }  
@@ -289,10 +309,9 @@ import axios from 'axios'
     .Vtable{
         width auto
         height 528px
-        margin 6px 14px 0 14px
+        margin 0px 14px 0px 14px
     }
     .selectTab{
-        // margin-top 20px
         margin-bottom 5px
         margin-left 14px
         margin-right 14px
@@ -308,6 +327,6 @@ import axios from 'axios'
         width 33.3%
     }
     .page{  
-        margin 100px 15px 8px 14px
+        margin 20px 15px 0px 14px
     }
   </style>
